@@ -1,0 +1,16 @@
+CREATE TABLE computers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(25) NOT NULL,
+  ip VARCHAR(12) NOT NULL,
+  os VARCHAR(10),
+  serial VARCHAR(25),
+  notes TEXT,
+  model VARCHAR(25),
+  manufacturer VARCHAR(50),
+  cpu VARCHAR(50),
+  ram VARCHAR(50),
+  install_date DATE,
+  hdd_or_ssd BOOLEAN,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP,
+);
