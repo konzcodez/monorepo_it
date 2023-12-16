@@ -15,11 +15,20 @@ pub struct Computer {
     pub cpu: String,
     pub memory: String,
     pub storage: String,
-    pub install_date: String,
+    pub installdate: String,
 }
 #[derive(Insertable)]
 #[diesel(table_name = computers)]
 pub struct NewComputer<'a> {
     pub ip : &'a str,
     pub name : &'a str,
+    pub os : &'a str,
+    pub snum : &'a str,
+    pub notes : &'a str,
+    pub model : &'a str,
+    pub manufacturer : &'a str,
+    pub cpu : &'a str,
+    pub memory : &'a str,
+    pub storage : &'a str,
+    pub installdate : &'a str,
 }

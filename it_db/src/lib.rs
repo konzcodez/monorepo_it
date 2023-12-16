@@ -10,3 +10,28 @@ pub fn establish_connection() -> PgConnection {
     PgConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
+
+use self::models::{NewComputer, Computer};
+pub fn new_computer(conn: &mut PgConnection, name: &str, ip: &str) -> Computer {
+    use crate::schema::computers;
+
+    let new_computer = NewComputer {
+        name: name,
+        ip: ip,
+        os: "",
+        snum: "",
+        notes: "",
+        model: "",
+        manufacturer: "",
+        cpu: "",
+        memory: "",
+        storage: "",
+        installdate: "",
+    };
+
+    diesel::insert_into(computers::table)
+        .values(&new_computer)
+        .returning(Computer::as_returning())
+        .get_result(conn)
+        .expect("Error saving new computer")
+}
