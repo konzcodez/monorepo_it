@@ -9,5 +9,5 @@ edition = "2021"
 diesel = { version = "2.1.0", features = ["postgres"] }
 dotenv = "0.15.0"
 [[bin]]
-name = "test_run"
-path = "src/test_run.rs"
+name = "pc-db"
+path = "src/pc-db.rs"
