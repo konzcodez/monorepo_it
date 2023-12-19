@@ -24,14 +24,15 @@ pub fn establish_connection() -> PgConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-use self::models::{Computer, NewComputer};
+use self::models::{Computer};
 
 pub fn add_computer(conn: &mut PgConnection) {}
 /* Commdands */
 pub fn list_all_computers(conn: &mut PgConnection) {
     println!("Listing all computers!");
     let results = computers
-        .load::<Computer>(conn)
+        .select(Computer::as_select())
+        .load(conn)
         .expect("Error loading computers");
     println!("Displaying {} computers", results.len());
     for computer in results {
@@ -89,6 +90,7 @@ fn filter_type_cmd_menu() -> TypeOfSearch {
     println!("10. INSTALLDATE");
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
+    input = input.trim().to_string();
     match input.trim().parse::<u32>() {
         Ok(1) => type_of_search = TypeOfSearch::PCNAME,
         Ok(2) => type_of_search = TypeOfSearch::IP,
@@ -104,42 +106,9 @@ fn filter_type_cmd_menu() -> TypeOfSearch {
     }
     type_of_search
 }
+
 pub fn search_computer(conn: &mut PgConnection, args: Vec<String>) {
-    if args.len() < 3 {
-        let searchtype = filter_type_cmd_menu();
-        match (searchtype) {
-            PCNAME => {
-                let results = computers
-                    .filter(name.eq(args[2].clone()))
-                    .load::<Computer>(conn)
-                    .expect("Error loading computers");
-                println!("Displaying {} computers", results.len());
-                println!("--------------------------------");
-                for computer in results {
-                    println!("PCNAME: {}", computer.name);
-                    println!("IP: {}", computer.ip);
-                    println!("OS: {}", computer.os);
-                    println!("SERIAL NUMBER: {}", computer.snum);
-                    println!("MODEL: {}", computer.model);
-                    println!("MANUFACTURER: {}", computer.manufacturer);
-                    println!("CPU: {}", computer.cpu);
-                    println!("MEMORY: {}", computer.memory);
-                    println!("STORAGE: {}", computer.storage);
-                    println!("INSTALLDATE: {}", computer.installdate);
-                }
-            }
-            IP => {}
-            OS => {}
-            SERIALNUMBER => {}
-            MODEL => {}
-            MANUFACTURER => {}
-            CPU => {}
-            MEMORY => {}
-            STORAGE => {}
-            INSTALLDATE => {}
-            _ => println!("Invalid input"),
-        }
-    }
 }
+
 pub fn remove_computer(conn: &mut PgConnection, args: Vec<String>) {}
 pub fn update_computer(conn: &mut PgConnection, args: Vec<String>) {}
