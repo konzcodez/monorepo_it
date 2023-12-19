@@ -1,5 +1,7 @@
 Dependancies:
-    Postgresql
-    diesel-cli
+    Postgresql,diesel-cli
+
+
+
 About:
-    This is an application meant to aid the IT Helpdesk in computer inventory
+    This is a project designed to fulfill my programming itch, hopefully ending with a full set of IT tooling before publishing. If I shared this for you please give feedback on code quality.
