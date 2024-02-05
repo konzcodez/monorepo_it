@@ -1,3 +1,3 @@
 [workspace] 
 resolver = "2" 
-members = [ "it_db", "chat_system","installed_software", "remote_command", "remote_desktop", "sys_info", "it_db"]
+members = [ "ui_test_iced","it_db", "chat_system","installed_software", "remote_command", "remote_desktop", "sys_info", "it_db", "ui_test_iced"]
